@@ -1,0 +1,68 @@
+CREATE KEYSPACE university WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '3'}  AND durable_writes = true;
+
+DESC KEYSPACES;
+
+USE univesity;
+
+CREATE TABLE university.student (
+    rollno int PRIMARY KEY,
+    dept text,
+    name text,
+    semester int
+) WITH bloom_filter_fp_chance = 0.01
+    AND caching = {'keys': 'ALL', 'rows_per_partition': 'NONE'}
+    AND comment = ''
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32', 'min_threshold': '4'}
+    AND compression = {'chunk_length_in_kb': '64', 'class': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND crc_check_chance = 1.0
+    AND dclocal_read_repair_chance = 0.1
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 864000
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 0
+    AND min_index_interval = 128
+    AND read_repair_chance = 0.0
+    AND speculative_retry = '99PERCENTILE';
+
+Insert into University.Student (RollNo, name, dept, semester) values (2, 'Michael', 'CS', 2);
+Insert into University.Student (RollNo, name, dept, semester) VALUES (1, 'Clark','CS',2);
+Insert into University.Student (RollNo, name, dept, semester) VALUES (1, 'Michael','CS',2);
+
+SELECT * FROM University.Student;
+SELECT* FROM University.Student where rollno = 1;
+
+UPDATE University.Student SET semester = 3  where rollno = 1;
+
+Delete from University.Student where rollno=3;
+
+Create index DeptIndex on University.Student(dept);
+
+CREATE TABLE university.teacher (
+    id int PRIMARY KEY,
+    email set<text>,
+    name text
+) WITH bloom_filter_fp_chance = 0.01
+    AND caching = {'keys': 'ALL', 'rows_per_partition': 'NONE'}
+    AND comment = ''
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32', 'min_threshold': '4'}
+    AND compression = {'chunk_length_in_kb': '64', 'class': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND crc_check_chance = 1.0
+    AND dclocal_read_repair_chance = 0.1
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 864000
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 0
+    AND min_index_interval = 128
+    AND read_repair_chance = 0.0
+    AND speculative_retry = '99PERCENTILE';
+
+INSERT INTO University.Teacher (id, Name, Email) VALUES (1, 'Guru99 ', { 'abc@gmail.com', 'xyz@hotmail.com'});
+
+alter table University.Teacher add coursenames list <text>;
+INSERT INTO University.Teacher  (id, Name, Email,coursenames) VALUES (2, 'Hamilton', { 'Hamilton@yahoo.com'},['Data Science']);
+
+Create table University.Course(
+              ... id int,
+              ... prereq map<text,text>,
+              ... primary key(id));
+insert into University.Course (id , prereq) values (1,{'Data Science':'Database','Neural Networl': 'Artificial Intelligence'});
