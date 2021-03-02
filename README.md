@@ -9,6 +9,6 @@ Almacenamiento y motores
 - María Camila García García
 ### Universidad EAFIT
 ## Videosustentación
-link: 
+link: https://web.microsoftstream.com/video/03fcf8e8-9a28-4cc8-ac83-e23f96485eec
 ## Descripción
 El objetivo de este proyecto era lograr que todos los integrantes del equipo comprendieran el funcionamiento de un motor de base de datos NoSQL como Cassandra, incluyendo los conceptos y teoría pertinente que permiten la aplicación de buenas prácticas dentro del diseño de bases de datos eficientes. Además, se consiguió revisar y asimilar la mayoría de géneros de comandos disponibles en el lenguaje Cassandra Query Language o CQL. Y finalmente se alcanzó a realizar un despliegue en la nube con Amazon Web Services para evidenciar el funcionamiento de Cassandra con varios nodos que es cuando realmente es útil y poderosa.
